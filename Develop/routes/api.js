@@ -23,18 +23,18 @@ router.get("/api/workouts", (req, res) => {
       });
   });
 
-//   router.put("/api/workouts/:id", ({ params, body}, res) => {
-//     Workout.findByIdAndUpdate(
-//         { _id: params.id }, 
-//         { $set: {workout: body}}, {new: true, runvalidators: true})
-//         .then(dbworkout => {
-//             if(!dbresistance){
-//                 res.status(400).json({message: "no workout found with this id"});
-//                 return;
-//             }
-//             res.json(dbworkout);
+  router.put("/api/workouts/:id", ({ params, body}, res) => {
+    Workout.findByIdAndUpdate(
+        { _id: params.id }, 
+        { $set: {workout: body}}, {new: true, runvalidators: true})
+        .then(dbworkout => {
+            if(!dbworkout){
+                res.status(400).json({message: "no workout found with this id"});
+                return;
+            }
+            res.json(dbworkout);
      
-//       });
-//   });
+      });
+  });
 
   module.exports = router;
