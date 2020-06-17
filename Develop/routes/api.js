@@ -23,9 +23,10 @@ router.get("/api/workouts", (req, res) => {
       });
   });
 
-  router.get("api/workouts/range", (req, res) => {
-    Workout.find({})
+  router.get("/api/workouts/range", (req, res) => {
+    Workout.find({}).limit(7)
       .then(dbworkout => {
+        console.log(dbworkout);
         res.json(dbworkout);
       })
       .catch(err => {
@@ -33,11 +34,11 @@ router.get("/api/workouts", (req, res) => {
       });
   });
 
-  router.put("/api/workouts/:id", ({ params, body}, res) => {
-    Workout.findByIdAndUpdate(
-        { _id: params.id }, 
-        { $set: {exercises: body}}, {new: true, runvalidators: true})
+  router.put("/api/workouts/:id", (req, res) => {
+    Workout.update({ _id: req.params.id }, { $push: {exercises: req.body}})
+    
         .then(dbworkout => {
+          console.log(req.body)
             if(!dbworkout){
                 res.status(400).json({message: "no workout found with this id"});
                 return;
