@@ -45,12 +45,14 @@ const workoutSchema = new Schema({
  
  
 },
-{toJSON: {
+{
+  toJSON: {
+    //include any citural properties when data is requested
   virtuals: true
 }}
 );
 
-workoutSchema.virtual("total duration").get(function(){
+workoutSchema.virtual("totalDuration").get(function(){
   return this.exercises.reduce((total, exercise) => {
     return total + exercise.duration;
   }, 0);
